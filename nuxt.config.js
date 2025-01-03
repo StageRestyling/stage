@@ -53,5 +53,8 @@ export default {
     publicPath: '/_nuxt/',
   },
 
-  target: 'static'
+  target: 'static',
+  generate: {
+    dir: 'dist',
+  },
 }
