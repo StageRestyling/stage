@@ -3,7 +3,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, message } = req.body;
+  const {
+    name,
+    email,
+    phone,
+    service,
+    customService,
+    carDetails,
+    color,
+    message,
+  } = req.body;
+
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
@@ -12,11 +22,15 @@ export default async function handler(req, res) {
   }
 
   const telegramMessage = `
-New Message from Website:
-Name: ${name || 'N/A'}
-Email: ${email || 'N/A'}
-Message: ${message || 'N/A'}
-    `;
+🚘 New Quote Request from Website:
+👤 Name: ${name || 'N/A'}
+📧 Email: ${email || 'N/A'}
+📞 Phone: ${phone || 'N/A'}
+🛠️ Service: ${service === 'Other' ? customService || 'N/A' : service || 'N/A'}
+🚗 Car Details: ${carDetails || 'N/A'}
+🎨 Car Color: ${color || 'N/A'}
+✉️ Message: ${message || 'N/A'}
+  `;
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -26,7 +40,8 @@ Message: ${message || 'N/A'}
     });
 
     if (!response.ok) {
-      throw new Error(`Telegram API Error: ${response.statusText}`);
+      const error = await response.json();
+      throw new Error(`Telegram API Error: ${error.description}`);
     }
 
     res.status(200).json({ success: true, message: 'Message sent successfully' });
