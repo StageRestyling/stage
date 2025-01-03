@@ -105,44 +105,12 @@ export default {
   },
   methods: {
     async submitForm() {
-      if (!this.formData.agreed) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Agreement Required',
-          text: 'You must agree to the Privacy Policy!',
-          confirmButtonText: 'OK',
-        })
-        return
-      }
-
-      const message = `
-      New Quote Request:
-      - Name: ${this.formData.name || 'Not provided'}
-      - Email: ${this.formData.email || 'Not provided'}
-      - Phone: ${this.formData.phone || 'Not provided'}
-      - Service: ${
-        this.formData.service === 'Other'
-          ? this.formData.customService
-          : this.formData.service || 'Not provided'
-      }
-      - Car Details: ${this.formData.carDetails || 'Not provided'}
-      - Car Color: ${this.formData.color || 'Not provided'}
-      - Scope of Work: ${this.formData.scope || 'Not provided'}
-      - Message: ${this.formData.message || 'Not provided'}
-    `.trim()
-
       try {
-        const response = await fetch(
-          `https://api.telegram.org/bot${this.botToken}/sendMessage`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: this.chatId,
-              text: message,
-            }),
-          }
-        )
+        const response = await fetch('/api/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.formData),
+        });
 
         if (response.ok) {
           Swal.fire({
@@ -151,18 +119,15 @@ export default {
             text: 'Your request has been sent successfully!',
             confirmButtonText: 'Great!',
           }).then(() => {
-            this.resetForm()
-          })
+            this.resetForm();
+          });
         } else {
-          const errorData = await response.json()
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text:
-              errorData.description ||
-              'Failed to send your request. Please try again later.',
+            text: 'Failed to send your request. Please try again later.',
             confirmButtonText: 'OK',
-          })
+          });
         }
       } catch (error) {
         Swal.fire({
@@ -170,7 +135,7 @@ export default {
           title: 'Error',
           text: 'An unexpected error occurred. Please try again later.',
           confirmButtonText: 'OK',
-        })
+        });
       }
     },
     resetForm() {
