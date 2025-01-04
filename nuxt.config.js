@@ -1,15 +1,18 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'stage-restyling',
+    title: 'Stage Restyling | High-Quality Vehicle Wraps & Protection',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'description', name: 'description', content: 'Discover high-quality vehicle wraps, window tinting, and paint protection at Stage Restyling. Our expert team ensures top-notch service and results.' },
+      { name: 'keywords', content: 'vehicle wraps, window tinting, paint protection, vinyl wraps, Edmonton car services' },
+      { name: 'author', content: 'Stage Restyling' },
+      { name: 'robots', content: 'index, follow' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
