@@ -31,11 +31,11 @@
         <ul>
           <li>
             <img :src="icons.instagram" alt="Instagram Icon" class="icon" />
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Our Instagram</a>
+            <a href="https://www.instagram.com/stage.restyling/" target="_blank" rel="noopener noreferrer">Our Instagram</a>
           </li>
           <li>
             <img :src="icons.facebook" alt="Facebook Icon" class="icon" />
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Our Facebook</a>
+            <a href="https://www.facebook.com/profile.php?id=100089192395615" target="_blank" rel="noopener noreferrer">Our Facebook</a>
           </li>
         </ul>
       </div>
