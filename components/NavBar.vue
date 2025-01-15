@@ -2,8 +2,8 @@
   <div class="navigation">
     <img class="stage_restyling_logo" src="~assets/icons/stage_restyling_logo.svg" alt="">
     <ul :class="['navigation_links', isDarkSection ? 'dark-links' : 'light-links']">
-      <li class="navigation_links_link"><a href="#home" @click.prevent="scrollTo('home')">Home</a></li>
-      <li class="navigation_links_link"><a href="#about" @click.prevent="scrollTo('about')">About Us</a></li>
+      <li class="navigation_links_link"><a href="/">Home</a></li>
+      <li class="navigation_links_link"><a href="about-us">About Us</a></li>
       <li class="navigation_links_link"><a href="#service" @click.prevent="scrollTo('service')">Services</a></li>
       <li class="navigation_links_link"><a href="#portfolio" @click.prevent="scrollTo('portfolio')">Portfolio</a></li>
       <li class="navigation_links_link"><a href="#contact" @click.prevent="scrollTo('contact')">Contact</a></li>
@@ -15,8 +15,8 @@
     </button>
     <nav :class="menuOpen ? 'menu open' : 'menu'">
       <ul>
-        <li><a href="#home" @click="toggleMenu">Home</a></li>
-        <li><a href="#about" @click="toggleMenu">About Us</a></li>
+        <li><a href="/" @click="toggleMenu">Home</a></li>
+        <li><a href="about-us">About Us</a></li>
         <li><a href="#service" @click="toggleMenu">Services</a></li>
         <li><a href="#portfolio" @click="toggleMenu">Portfolio</a></li>
         <li><a href="#contact" @click="toggleMenu">Contact</a></li>

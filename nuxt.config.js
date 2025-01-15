@@ -44,8 +44,8 @@ export default {
     hostname: 'https://www.stagerestyling.ca',
     routes: [
       { url: '/', changefreq: 'daily', priority: 1.0 },
-      { url: '/#home', changefreq: 'weekly', priority: 0.9 },
-      { url: '/#about', changefreq: 'weekly', priority: 0.8 },
+      { url: '/', changefreq: 'weekly', priority: 0.9 },
+      { url: '/about-us', changefreq: 'weekly', priority: 0.8 },
       { url: '/#service', changefreq: 'weekly', priority: 0.8 },
       { url: '/#portfolio', changefreq: 'monthly', priority: 0.7 },
       { url: '/#contact', changefreq: 'monthly', priority: 0.6 },
@@ -55,10 +55,21 @@ export default {
   build: {
     publicPath: '/_nuxt/',
   },
-
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push(
+        {
+          name: 'about',
+          path: '/about-us',
+          component: resolve(__dirname, 'pages/about-us.vue'),
+        }
+      );
+    },
+  },
   target: 'static',
   generate: {
     dir: 'dist',
+    routes: ['/about-us'],
   },
   publicRuntimeConfig: {
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
