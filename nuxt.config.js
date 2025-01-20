@@ -34,9 +34,7 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
-  serverMiddleware: [
-    { path: '/api/sendMessage', handler: '~/serverMiddleware/api/sendMessage.js' },
-  ],
+  serverMiddleware: [],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/dotenv',
@@ -59,6 +57,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     publicPath: '/_nuxt/',
+    terser: false
   },
   target: 'static',
   generate: {

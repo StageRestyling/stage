@@ -105,26 +105,28 @@ export default {
     };
   },
   methods: {
-    closeModal() {
-      this.$emit('close'); // Закрывает окно, вызывая событие у родителя
-    },
-    async submitForm() {
-      try {
-        Swal.fire({
-          title: 'Sending...',
-          text: 'Please wait while we process your request.',
-          icon: 'info',
-          allowOutsideClick: false,
-          showConfirmButton: false,
-        });
+    methods: {
+      closeModal() {
+        this.$emit('close');
+      },
+      async submitForm() {
+        try {
+          const response = await fetch('/api/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.formData),
+          });
 
-        const response = await fetch('/api/sendMessage', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(this.formData),
-        });
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Server error:', errorData);
+            throw new Error(errorData.error || 'Failed to send request.');
+          }
 
-        if (response.ok) {
+          const data = await response.json();
+          console.log('Response from server:', data);
+
+          // Здесь вызываем Swal, чтобы показать пользователю результат
           Swal.fire({
             icon: 'success',
             title: 'Success!',
@@ -132,25 +134,18 @@ export default {
             confirmButtonText: 'Great!',
           }).then(() => {
             this.resetForm();
-            this.closeModal(); // Закрываем окно после успешной отправки
           });
-        } else {
-          const errorData = await response.json();
+        } catch (error) {
+          console.error('Unexpected error:', error);
+
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: errorData.error || 'Failed to send your request. Please try again later.',
+            text: error.message || 'An unexpected error occurred. Please try again later.',
             confirmButtonText: 'OK',
           });
         }
-      } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'An unexpected error occurred. Please try again later.',
-          confirmButtonText: 'OK',
-        });
-      }
+      },
     },
     resetForm() {
       this.formData = {
