@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.2",
     "@nuxtjs/sitemap": "^2.4.0",
+    "body-parser": "^1.20.3",
     "core-js": "^3.25.3",
     "nitropack": "^2.10.4",
     "nuxt": "^2.15.8",

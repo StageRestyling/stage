@@ -1,145 +1,185 @@
 <template>
-  <section id="about-us" class="about-us">
+  <div>
     <NavBar />
-    <div class="about-us_section">
-      <div class="about-us-content">
-        <h1>About Stage Restyling</h1>
-        <p>
-          Welcome to <strong>Stage Restyling</strong>, your trusted partner in car wraps,
-          window tinting, and protective films in Edmonton, Alberta. Our mission is to
-          transform vehicles into unique masterpieces while providing exceptional
-          protection against the elements.
+    <!-- Блок с заголовком -->
+    <div class="page-header">
+      <div id="particles-js"></div>
+      <div class="header-content">
+        <h1 class="header-title">About Us</h1>
+        <p class="header-description">
+          Learn about Stage Restyling, your trusted partner in car wraps, window tinting, and protective films in Edmonton, Alberta.
         </p>
-        <p>
-          Located in the heart of Edmonton, we are proud to serve customers from all
-          neighborhoods, including Downtown, Southside, North Edmonton, and beyond.
-          Whether you need a sleek vinyl wrap, premium paint protection, or
-          high-quality ceramic coatings, Stage Restyling has you covered.
-        </p>
-        <p>
-          With years of experience and a team dedicated to excellence, we guarantee
-          professional service and outstanding results. Let us help you redefine your
-          car's style and performance.
-        </p>
-        <p>
-          Visit us at <a href="https://maps.app.goo.gl/FpbSkztcWAzM7xM77" target="_blank">4412 118 Ave NW, Edmonton</a>,
-          or contact us today to learn more about our services.
-        </p>
-      </div>
-      <div class="about-us-image">
-        <img src="~assets/images/about-us.jpeg" alt="Stage Restyling in Edmonton" />
       </div>
     </div>
-    <FooterSection class="footer" />
-  </section>
+
+    <!-- Информационный блок -->
+    <section class="about-content">
+      <div class="about-container">
+        <div class="about-text">
+          <h2>Welcome to Stage Restyling</h2>
+          <p>
+            At <strong>Stage Restyling</strong>, we specialize in providing top-notch car customization and protection services. Located in the heart of Edmonton, Alberta, we pride ourselves on delivering exceptional quality and customer satisfaction.
+          </p>
+          <p>
+            Whether you're looking to enhance your car's appearance with a <strong>custom vinyl wrap</strong>, protect your vehicle with <strong>paint protection film</strong>, or upgrade your driving experience with <strong>window tinting</strong>, we’ve got you covered. Our team uses only premium-grade materials to ensure durability and style.
+          </p>
+          <ul>
+            <li><strong>Experience:</strong> Over a decade of expertise in the industry.</li>
+            <li><strong>Top-quality materials:</strong> We use only industry-leading brands like 3M and Xpel.</li>
+            <li><strong>Customer-centric approach:</strong> Your satisfaction is our priority.</li>
+            <li><strong>Wide range of services:</strong> From ceramic coatings to window tinting, we handle it all.</li>
+          </ul>
+          <p>
+            Our workshop is conveniently located at <a href="https://maps.app.goo.gl/FpbSkztcWAzM7xM77" target="_blank">4412 118 Ave NW, Edmonton</a>. Visit us today to transform your car into a masterpiece or contact us for a personalized quote.
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="~assets/images/about-us.jpg" alt="Stage Restyling in Edmonton" />
+        </div>
+      </div>
+    </section>
+
+    <FooterBar />
+  </div>
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
+import FooterBar from "@/components/FooterSection.vue";
+
 export default {
-  head() {
-    return {
-      title: "About Us - Stage Restyling | Edmonton, Alberta",
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content:
-            "Learn about Stage Restyling, the premier destination for car wraps, window tinting, and protective films in Edmonton, Alberta. Transform your vehicle today!",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content:
-            "car wraps Edmonton, window tinting Edmonton, paint protection Edmonton, Stage Restyling, ceramic coatings Edmonton",
-        },
-        { property: "og:title", content: "About Us - Stage Restyling | Edmonton, Alberta" },
-        { property: "og:description", content: "Your trusted partner in car wraps and protective films in Edmonton." },
-        { property: "og:image", content: "https://www.stagerestyling.ca/assets/images/about-us.jpg" },
-        { property: "og:url", content: "https://www.stagerestyling.ca/about-us" },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-    };
+  components: {
+    NavBar,
+    FooterBar,
+  },
+  mounted() {
+    this.initParticles();
+  },
+  methods: {
+    initParticles() {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/particles.js";
+      script.onload = () => {
+        window.particlesJS("particles-js", {
+          particles: {
+            number: { value: 100 },
+            size: { value: 2 },
+            move: { speed: 2 },
+            line_linked: { enable: true, opacity: 0.2 },
+            color: { value: "#ffffff" },
+          },
+        });
+      };
+      document.head.appendChild(script);
+    },
   },
 };
 </script>
 
 <style scoped>
-.about-us {
+.page-header {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: center;
+  height: 300px;
+  background: linear-gradient(135deg, #111, #333);
+  color: white;
+  text-align: center;
+  overflow: hidden;
 }
-.about-us_section {
-  margin: 150px 0;
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.header-description {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.about-content {
+  padding: 50px 10%;
+  background: #f9f9f9;
+  color: #333;
+}
+strong {
+  color: #9F0000;
+}
+.about-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  align-content: center;
   justify-content: space-between;
-  padding: 0 10%;
-  width: 100%;
   gap: 30px;
 }
-.footer {
-  width: 100%;
-  margin-bottom: 0;
-}
 
-.about-us-content {
+.about-text {
   flex: 1;
-  max-width: 50%;
 }
 
-.about-us-content h1 {
-  font-size: 2.5rem;
+.about-text h2 {
+  font-size: 2rem;
   margin-bottom: 20px;
-  color: #333;
 }
 
-.about-us-content p {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+.about-text ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.about-text ul li {
+  margin-bottom: 10px;
+}
+
+.about-text p {
   line-height: 1.6;
-  color: #555;
 }
 
-.about-us-content a {
-  color: #007bff;
-  text-decoration: none;
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
-.about-us-content a:hover {
-  text-decoration: underline;
-}
-
-.about-us-image img {
+.about-image img {
   width: 100%;
   height: auto;
-  max-width: 500px; /* Увеличить максимальную ширину изображения */
+  max-width: 500px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto; /* Центрирование изображения */
-}
-.about-us-image {
-  display: flex;
-  justify-content: center; /* Центрируем изображение */
-  flex: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 1024px) {
-  .about-us_section {
+@media (max-width: 768px) {
+  .about-container {
     flex-direction: column;
     text-align: center;
   }
 
-  .about-us-content {
-    max-width: 100%;
+  .about-text {
+    padding-right: 0;
   }
 
-  .about-us-image {
-    margin-top: 30px;
+  .about-image {
+    margin-top: 20px;
   }
 }
 </style>

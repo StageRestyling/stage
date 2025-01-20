@@ -34,7 +34,9 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
-
+  serverMiddleware: [
+    { path: '/api/sendMessage', handler: '~/serverMiddleware/api/sendMessage.js' },
+  ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/dotenv',
@@ -46,30 +48,30 @@ export default {
       { url: '/', changefreq: 'daily', priority: 1.0 },
       { url: '/', changefreq: 'weekly', priority: 0.9 },
       { url: '/about-us', changefreq: 'weekly', priority: 0.8 },
-      { url: '/#service', changefreq: 'weekly', priority: 0.8 },
-      { url: '/#portfolio', changefreq: 'monthly', priority: 0.7 },
-      { url: '/#contact', changefreq: 'monthly', priority: 0.6 },
+      { url: '/services-page', changefreq: 'weekly', priority: 0.8 },
+      { url: '/car-wraps', changefreq: 'weekly', priority: 0.8 },
+      { url: '/ceramic-coating', changefreq: 'weekly', priority: 0.8 },
+      { url: '/window-tinting', changefreq: 'weekly', priority: 0.8 },
+      { url: '/portfolio-page', changefreq: 'monthly', priority: 0.7 },
+      { url: '/contact-page', changefreq: 'monthly', priority: 0.6 },
     ],
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     publicPath: '/_nuxt/',
   },
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push(
-        {
-          name: 'about',
-          path: '/about-us',
-          component: resolve(__dirname, 'pages/about-us.vue'),
-        }
-      );
-    },
-  },
   target: 'static',
   generate: {
     dir: 'dist',
-    routes: ['/about-us'],
+    routes: [
+      '/about-us',
+      '/services-page',
+      '/car-wraps',
+      '/ceramic-coating',
+      '/window-tinting',
+      '/portfolio',
+      '/contact',
+    ],
   },
   publicRuntimeConfig: {
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,

@@ -3,7 +3,7 @@
     <div class="gallery-header">
       <h2>Gallery</h2>
       <a
-        href="https://www.facebook.com/profile.php?id=100089192395615"
+        href="/portfolio"
         target="_blank"
         rel="noopener noreferrer"
         class="gallery-more"
@@ -31,8 +31,8 @@ export default {
   data() {
     return {
       images: [
-        { src: require("@/assets/images/car1.JPG"), class: "wide" },
-        { src: require("@/assets/images/car2.JPG"), class: "tall" },
+        { src: require("assets/images/car1.jpg"), class: "wide" },
+        { src: require("assets/images/car2.jpg"), class: "tall" },
         { src: require("@/assets/images/car3.JPG"), class: "wide" },
       ],
     };

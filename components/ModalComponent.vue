@@ -1,11 +1,8 @@
 <template>
-  <section id="quote" class="quote">
-    <div class="quote-form">
-      <h2>Get a Quote for Your Car Services</h2>
-      <p>
-        Tell us about your needs, and we’ll get back to you with a personalized
-        quote!
-      </p>
+  <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+    <div class="modal-content" @click.stop>
+      <button class="close-button" @click="closeModal">✕</button>
+      <h2>Get a Quote</h2>
       <form @submit.prevent="submitForm">
         <div class="form-columns">
           <div class="form-column">
@@ -34,9 +31,7 @@
             <select id="service" v-model="formData.service" required>
               <option disabled value="">Select a service *</option>
               <option value="Window Tinting">Window Tinting</option>
-              <option value="Paint Protection Film">
-                Paint Protection Film
-              </option>
+              <option value="Paint Protection Film">Paint Protection Film</option>
               <option value="Vinyl Wraps">Vinyl Wraps</option>
               <option value="Ceramic Coating">Ceramic Coating</option>
               <option value="Other">Other</option>
@@ -79,12 +74,20 @@
         <button type="submit">Send</button>
       </form>
     </div>
-  </section>
+  </div>
 </template>
 
+
 <script>
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+
 export default {
+  props: {
+    isOpen: {
+      type: Boolean,
+      required: true, // Управляет отображением окна
+    },
+  },
   data() {
     return {
       formData: {
@@ -99,9 +102,12 @@ export default {
         message: '',
         agreed: false,
       },
-    }
+    };
   },
   methods: {
+    closeModal() {
+      this.$emit('close'); // Закрывает окно, вызывая событие у родителя
+    },
     async submitForm() {
       try {
         Swal.fire({
@@ -161,104 +167,127 @@ export default {
       };
     },
   },
-}
+};
 </script>
 
 <style>
-.quote {
-  margin-top: 100px;
-  padding: 0 10%;
-}
-.quote-form {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-.quote-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 35px;
-  font-weight: 600;
-}
-.quote-form p {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.quote-form .form-columns {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  gap: 20px; /* Расстояние между столбцами */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
   margin-bottom: 20px;
 }
 
-.quote-form .form-column {
-  flex: 1; /* Равная ширина столбцов */
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #000;
 }
 
-.quote-form input,
-.quote-form select,
-.quote-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.quote-form textarea {
-  resize: vertical;
-}
-
-.quote-form input::placeholder,
-.quote-form textarea::placeholder {
-  color: #999;
-  font-size: 0.9rem;
-}
-
-.quote-form select {
-  color: #333;
-}
-
-.quote-form button {
-  width: 100%;
-  padding: 10px;
+form button {
   background: #000;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 15px;
   font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.quote-form button:hover {
-  background-color: #333;
+form button:hover {
+  background-color: #003d99;
 }
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+form input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-columns {
+  display: flex;
+  gap: 20px;
+}
+
+.form-column {
+  flex: 1;
+}
+
 @media (max-width: 768px) {
-  .quote-form .form-columns {
-    display: block; /* Убираем flex и делаем элементы в один столбик */
-  }
-
-  .quote-form .form-column {
-    flex: none; /* Убираем равную ширину столбцов */
-    width: 100%; /* Делаем столбцы на всю ширину */
-  }
-
-  .quote-form input,
-  .quote-form select,
-  .quote-form textarea {
-    width: 100%; /* Поля ввода растягиваются на всю ширину */
-  }
-
-  .quote-form button {
-    width: 100%; /* Кнопка тоже растягивается на всю ширину */
-  }
-  .quote-form h3 {
-    font-size: 35px;
+  .form-columns {
+    flex-direction: column;
   }
 }
 </style>
