@@ -14,20 +14,10 @@ export default {
       { name: 'author', content: 'Stage Restyling' },
       { name: 'robots', content: 'index, follow' }
     ],
+    script: [],
+    __dangerouslyDisableSanitizers: ['script'],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
-  script: [
-    {
-      hid: 'gtm',
-      innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-M3H3QLVW');`,
-      type: 'text/javascript',
-    },
-  ],
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/fonts.css',
     '@/assets/css/tailwind.css'],
@@ -50,7 +40,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/dotenv',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/google-tag-manager'
   ],
   sitemap: {
     hostname: 'https://www.stagerestyling.ca',
@@ -83,6 +74,11 @@ export default {
       '/portfolio',
       '/contact',
     ],
+  },
+  googleTagManager: {
+    id: 'GTM-M3H3QLVW', // Замени на свой GTM-ID
+    pageTracking: true, // Отслеживание переходов по страницам
+    debug: false, // Включи, если хочешь видеть отладочные сообщения в консоли (для разработки)
   },
   publicRuntimeConfig: {
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
